@@ -19,7 +19,7 @@ class ic
         }
         else if(c == 1)
         {
-            add();
+            _or();
         }
         else
         {
@@ -32,7 +32,7 @@ class ic
         z =  x*y;
     }
 
-    void add()
+    void _or()
     {
         if(x ==  1 && y == 1)
         {
@@ -70,9 +70,9 @@ int main()
     cout<<"Enter the two inputs\n";
     cin>>a>>b>>c;
     ic_xor0.input(a,b,2);
-    ic_and0.input(a,b,0);
+    ic_and0.input(ic_xor0.result(),c,0);
     ic_xor1.input(c,ic_xor0.result(),2);
-    ic_and1.input(c,ic_xor1.result(),0);
+    ic_and1.input(a,b,0);
     ic_or0.input(ic_and0.result(),ic_and1.result(),1);
     cout<<ic_or0.result()<<ic_xor1.result();
     return 0;
