@@ -361,7 +361,7 @@ void full_adder()
 {
     ic ic_and0(0),ic_and1(0),ic_xor0(2),ic_xor1(2),ic_or0(1);
     int a=0,b=0,c=0;
-    cout<<"Enter the two inputs\n";
+    cout<<"Enter the three inputs\n";
     cin>>a>>b>>c;
     ic_xor0.input(a,b);
     ic_and0.input(ic_xor0.result(),c);
@@ -370,6 +370,24 @@ void full_adder()
     ic_or0.input(ic_and0.result(),ic_and1.result());
     cout<<ic_or0.result()<<ic_xor1.result();
     two_bitbcd(ic_or0.result(),ic_xor1.result());
+}
+
+void full_subtractor()
+{
+    ic ic_and0(0),ic_and1(0),ic_xor0(2),ic_xor1(2),ic_not0(-1),ic_not1(-1),ic_or0(1);
+    int a=0,b=0,c=0;
+    cout<<"Enter the three inputs\n";
+    cin>>a>>b>>c;
+    ic_xor0.input(a,b);
+    ic_not0.input(a);
+    ic_and0.input(b,ic_not0.result());
+    ic_xor1.input(ic_xor0.result(),c);
+    ic_not1.input(ic_xor0.result());
+    ic_and1.input(ic_not1.result(),c);
+    ic_or0.input(ic_and1.result(),ic_and0.result());
+    cout<<ic_xor1.result()<<ic_or0.result();
+
+
 }
 
 void multiplexer()
@@ -410,7 +428,7 @@ void comparator()
 
 int main()
 {
-    full_adder();
+    full_subtractor();
 
     return 0;
 }
