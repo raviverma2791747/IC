@@ -357,6 +357,51 @@ void two_bitbcd(int a=0,int b=0)
     cout<<"\n";
 
 }
+void four_bitbcd(int a=0,int b=0,int c=0,int d=0)
+{
+    cout<<"\n";
+    display(a,0);
+    cout<<" ";
+    display(b,0);
+    cout<<" ";
+    display(c,0);
+    cout<<" ";
+    display(d,0);
+    cout<<"\n";
+    display(a,1);
+    cout<<" ";
+    display(b,1);
+    cout<<" ";
+    display(c,1);
+    cout<<" ";
+    display(d,1);
+    cout<<"\n";
+    display(a,2);
+    cout<<" ";
+    display(b,2);
+    cout<<" ";
+    display(c,2);
+    cout<<" ";
+    display(d,2);
+    cout<<"\n";
+    display(a,3);
+    cout<<" ";
+    display(b,3);
+    cout<<" ";
+    display(c,3);
+    cout<<" ";
+    display(d,3);
+    cout<<"\n";
+    display(a,4);
+    cout<<" ";
+    display(b,4);
+    cout<<" ";
+    display(c,4);
+    cout<<" ";
+    display(d,4);
+    cout<<"\n";
+
+}
 void full_adder()
 {
     ic ic_and0(0),ic_and1(0),ic_xor0(2),ic_xor1(2),ic_or0(1);
@@ -370,6 +415,18 @@ void full_adder()
     ic_or0.input(ic_and0.result(),ic_and1.result());
     cout<<ic_or0.result()<<ic_xor1.result();
     two_bitbcd(ic_or0.result(),ic_xor1.result());
+}
+void full_adder(int a,int b,int c,int &sum,int &carry)
+{
+    ic ic_and0(0),ic_and1(0),ic_xor0(2),ic_xor1(2),ic_or0(1);
+    ic_xor0.input(a,b);
+    ic_and0.input(ic_xor0.result(),c);
+    ic_xor1.input(c,ic_xor0.result());
+    ic_and1.input(a,b);
+    ic_or0.input(ic_and0.result(),ic_and1.result());
+    carry = ic_or0.result();
+    sum = ic_xor1.result();
+
 }
 
 void full_subtractor()
@@ -402,6 +459,21 @@ void multiplexer()
     cout<<ic_nand3.result();
 }
 
+void parallel_adder()
+{
+    int num1[4],num2[4],c[4],s[4];
+    cout<<"Enter the number 1\n";
+    cin>>num1[3]>>num1[2]>>num1[1]>>num1[0];
+    cout<<"Enter the number 2\n";
+    cin>>num2[3]>>num2[2]>>num2[1]>>num2[0];
+    full_adder(num1[0],num2[0],0,s[0],c[0]);
+    full_adder(num1[1],num2[1],c[0],s[1],c[1]);
+    full_adder(num1[2],num2[2],c[1],s[2],c[2]);
+    full_adder(num1[3],num2[3],c[2],s[3],c[3]);
+    four_bitbcd(s[3],s[2],s[1],s[0]);
+
+}
+
 void comparator()
 {
     ic ic_not0(-1),ic_not1(-1),ic_and0(0),ic_and1(0),ic_or0(1);
@@ -428,7 +500,7 @@ void comparator()
 
 int main()
 {
-    full_subtractor();
+ parallel_adder();
 
     return 0;
 }
