@@ -497,11 +497,27 @@ void comparator()
     }
 }
 
+void serial_adder()
+{
+    int reg_a[4];
+    int reg_b[4];
+    int reg_sum[4];
+    int d_flip_flop=0;
+    cout<<"Enter the number 1\n";
+    cin>>reg_a[3]>>reg_a[2]>>reg_a[1]>>reg_a[0];
+    cout<<"Enter the number 2\n";
+    cin>>reg_b[3]>>reg_b[2]>>reg_b[1]>>reg_b[0];
+    for(int i=0;i<4;i++)
+    {
+        full_adder(reg_a[i],reg_b[i],d_flip_flop,reg_sum[i],d_flip_flop);
+    }
+
+    four_bitbcd(reg_sum[3],reg_sum[2],reg_sum[1],reg_sum[0]);
+}
 
 int main()
 {
- parallel_adder();
-
+    serial_adder();
     return 0;
 }
 
